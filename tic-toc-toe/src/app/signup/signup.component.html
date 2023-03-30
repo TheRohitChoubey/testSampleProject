@@ -1,0 +1,174 @@
+<div class="image">
+    <header>
+        <nav class="navbar navbar-dark bg-dark  navbar-expand-lg">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" [routerLink]="['/login']">
+                        <h5>Login</h5>
+                    </a>
+                </li>
+
+                <li class="nav-item active">
+                    <a class="nav-link" [routerLink]="['/signup']">
+                        <h5>Signup</h5>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+<div class="card border-primary">
+    <h2 class="card-header h2">Register</h2>
+    <h6 class="card-header h6">Enter your details here...</h6>
+    <div class="card-body  text-success">
+        <div class="form-group">
+            <form [formGroup]="registerForm" (ngSubmit)="submit()">
+                <div class="row">
+                    <div class="form-group" [ngClass]="{'has-error' : registerForm.get('email').errors&&
+                    (registerForm.get('email').touched|| registerForm.get('password').dirty) }">
+                        <label class="text-success">Email</label>
+                        <input type="email" formControlName="email" class="form-control" placeholder="Enter your Email">
+                        <span class="help-block" *ngIf="registerForm.get('email').errors&&
+                        (registerForm.get('email').touched || registerForm.get('email').dirty) ">
+                            <span class="text-danger" *ngIf="registerForm.get('email').errors?.['required'] ">
+                                Email is required
+                            </span>
+                            <span class="text-danger" *ngIf="registerForm.get('email').errors?.['email'] ">
+                                Email type is required
+                            </span>
+                        </span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group" [ngClass]="{'has-error' : registerForm.get('password').errors&&
+                    (registerForm.get('password').touched || registerForm.get('password').dirty) }">
+                        <label class="text-success">Password</label>
+                        <input type="password" formControlName="password" class="form-control" placeholder="Enter your Password">
+                        <span class="help-block" *ngIf="registerForm.get('password').errors&&
+                        (registerForm.get('password').touched || registerForm.get('password').dirty) ">
+                            <span class="text-danger" *ngIf="registerForm.get('password').errors?.['required'] ">
+                                Password is required
+                            </span>
+                            <span class="text-danger" *ngIf="registerForm.get('password').errors?.['minlength'] ">
+                                Minimum length should be 8 characters
+                            </span>
+                        </span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group" [ngClass]="{'has-error' : registerForm.get('confirmPassword').errors&&
+                    (registerForm.get('confirmPassword').touched || registerForm.get('confirmPassword').dirty)}">
+                        <label class="text-success">Confirm Password</label>
+                        <input type="password" formControlName="confirmPassword" class="form-control" placeholder="Enter your Password">
+                        <span class="help-block" appConfigEqualValidator="password" *ngIf="registerForm.get('confirmPassword').errors&&
+                        (registerForm.get('confirmPassword').touched || registerForm.get('confirmPassword').dirty) ">
+                            <span class="text-danger" *ngIf="registerForm.get('confirmPassword').errors?.['required'] ">
+                                Password is required
+                            </span>
+                            <span class="text-danger" *ngIf="registerForm.get('confirmPassword').errors?.['minlength'] ">
+                                Minimum length should be 6 characters
+                            </span>
+                            <span class="text-danger" *ngIf="registerForm.get('confirmPassword').touched && registerForm.get('confirmPassword').errors?.['notEqual'] 
+                            && !registerForm.get('confirmPassword').errors?.['required']">
+                                    Password and confirm Password field not matching
+                            </span>
+                        </span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group" [ngClass]="{'has-error' : registerForm.get('fname').errors&&
+                    (registerForm.get('fname').touched || registerForm.get('fname').dirty) }">
+                        <label class="text-success">First Name</label>
+                        <input type="text" formControlName="fname" class="form-control" placeholder="Enter your First Name">
+                        <span class="help-block" *ngIf="registerForm.get('fname').errors&&
+                        (registerForm.get('fname').touched || registerForm.get('fname').dirty) ">
+                            <span class="text-danger" *ngIf="registerForm.get('fname').errors?.['required'] ">
+                                Name is required
+                            </span>
+                            <span class="text-danger" *ngIf="registerForm.get('fname').errors?.['minlength'] ">
+                                Minimum length should be 1 characters
+                            </span>
+                        </span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group" [ngClass]="{'has-error' : registerForm.get('lname').errors&&
+                    (registerForm.get('lname').touched || registerForm.get('lname').dirty) }">
+                        <label class="text-success">Last Name</label>
+                        <input type="text" formControlName="lname" class="form-control" placeholder="Enter your Last Name">
+                        <span class="help-block" *ngIf="registerForm.get('lname').errors&&
+                        (registerForm.get('lname').touched || registerForm.get('lname').dirty) ">
+                            <span class="text-danger" *ngIf="registerForm.get('lname').errors?.['required'] ">
+                                Name is required
+                            </span>
+                            <span class="text-danger" *ngIf="registerForm.get('lname').errors?.['minlength'] ">
+                                Minimum length should be 1 characters
+                            </span>
+                        </span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group" [ngClass]="{'has-error' : registerForm.get('dob').errors&&
+                    (registerForm.get('dob').touched || registerForm.get('dob').dirty) }">
+                        <label class="text-success">DOB</label>
+                        <input class="form-control" type="date" formControlName="dob" placeholder="DOB">
+                        <span class="help-block" *ngIf="registerForm.get('dob').errors&&
+                        (registerForm.get('dob').touched || registerForm.get('dob').dirty) ">
+                            <span class="text-danger" *ngIf="registerForm.get('dob').errors?.['required'] ">
+                                DOB is required
+                            </span>
+                            <span class="text-danger" *ngIf="validateDOB(registerForm.get('dob'))">
+                                DOB cannot be current date
+                            </span>
+                        </span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group" [ngClass]="{'has-error' : registerForm.get('gender').errors&&
+                    (registerForm.get('gender').touched || registerForm.get('gender').dirty) }">
+                        <label class="text-success">Gender</label>
+                        <select formControlName="gender" class="form-control">
+                            <option disabled selected>Choose Gender</option> 
+                            <option>Male</option> 
+                            <option>Female</option>
+                        </select>  
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group" [ngClass]="{'has-error' : registerForm.get('username').errors&&
+                    (registerForm.get('username').touched || registerForm.get('username').dirty) }">
+                        <label class="text-success">Username</label>
+                        <input type="text" formControlName="username" class="form-control" placeholder="Enter your UserName">
+                        <span class="help-block" *ngIf="registerForm.get('username').errors&&
+                        (registerForm.get('username').touched || registerForm.get('username').dirty) ">
+                            <span class="text-danger" *ngIf="registerForm.get('username').errors?.['required'] ">
+                                UsernName is required
+                            </span>
+                            <span class="text-danger" *ngIf="registerForm.get('username').errors?.['minlength'] ">
+                                Minimum length should be 1 characters
+                            </span>
+                        </span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group" [ngClass]="{'has-error' : registerForm.get('phoneNumber').errors&&
+                    (registerForm.get('phoneNumber').touched || registerForm.get('phoneNumber').dirty) }">
+                        <label class="text-success">Phone number</label>
+                        <input type="text" formControlName="phoneNumber" class="form-control" placeholder="Enter your Phone Number">
+                        <span class="help-block" *ngIf="registerForm.get('phoneNumber').errors&&
+                        (registerForm.get('phoneNumber').touched || registerForm.get('phoneNumber').dirty) ">
+                            <span class="text-danger" *ngIf="registerForm.get('phoneNumber').errors?.['required'] ">
+                                Phone Number is required
+                            </span>
+                            <span class="text-danger" *ngIf="registerForm.get('phoneNumber').errors?.['minlength'] ">
+                                Minimum length should be 1 characters
+                            </span>
+                        </span>
+                    </div>
+                </div>
+                <input type="submit" [disabled]="!registerForm.valid" class="btn btn-success btn-lg" value="Register" />
+            </form>
+        </div>
+    </div>
+</div>
+
+</div>
